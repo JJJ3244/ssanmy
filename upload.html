@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>파일 업로드 | 부동산 전망 계산기</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 공통 헤더 -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">RealEstateCalc</a>
+      <nav class="nav" id="nav">
+        <a href="index.html#tools">도구</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#contact">문의</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 업로드 헤더 (쿼리파라미터로 제목 교체) -->
+    <section class="upload-hero">
+      <div class="container">
+        <h1 id="uploadTitle">파일 업로드</h1>
+        <p class="muted" id="uploadDesc">분석에 사용할 데이터를 업로드하세요.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container upload-wrap">
+        <!-- 드롭존 + 클릭 업로드 -->
+        <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="파일을 드래그 앤 드롭하거나 클릭해서 선택">
+          <input id="fileInput" type="file" multiple
+                 accept=".csv,.xlsx,.xls,.json,.pdf,.zip,.txt,image/*" />
+          <div>
+            <strong>파일을 이 영역에 드래그 앤 드롭</strong>하거나 <u>클릭해서 선택</u>하세요.
+          </div>
+          <div class="hint">지원 예: CSV, XLSX, PDF, ZIP, JSON, 이미지 등</div>
+        </div>
+
+        <!-- 선택된 파일 목록 -->
+        <div class="file-list" id="fileList" style="display:none">
+          <table>
+            <thead>
+              <tr>
+                <th>파일명</th>
+                <th>유형</th>
+                <th>크기</th>
+              </tr>
+            </thead>
+            <tbody id="fileTbody"></tbody>
+          </table>
+        </div>
+
+        <!-- 뒤로가기 -->
+        <div style="margin-top:16px">
+          <a class="btn ghost" href="index.html">← 메인으로</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 공통 푸터 -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <small>© 2025 RealEstateCalc</small>
+      <div class="footer-links">
+        <a href="index.html#tools">도구</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#contact">문의</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="upload.js"></script>
+</body>
+</html>

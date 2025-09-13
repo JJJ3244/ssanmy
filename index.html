@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>부동산 전망 계산기</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 헤더 -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">RealEstateCalc</a>
+      <nav class="nav" id="nav">
+        <a href="#tools">도구</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">문의</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 분석 도구 섹션 -->
+    <section class="section hero-min" id="tools">
+      <div class="container hero-stack">
+        <h1>부동산 전망 계산기</h1>
+        <p class="sub">원하는 분석 항목을 선택하세요.</p>
+
+        <!-- 버튼을 업로드 페이지로 연결 -->
+        <div class="btn-grid">
+          <a class="btn primary" href="upload.html?tool=summary">종합분석</a>
+          <a class="btn primary" href="upload.html?tool=demographic">인구통계분석</a>
+          <a class="btn primary" href="upload.html?tool=pre-sale">분양 전망 예측</a>
+          <a class="btn primary" href="upload.html?tool=elasticity">탄력성 분석</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ 단독 섹션 (크고 아래쪽) -->
+    <section class="section faq-section" id="faq">
+      <div class="container center">
+        <h2 class="section-title">FAQ</h2>
+        <p class="muted">자주 묻는 질문을 모아둘 예정입니다.</p>
+        <a class="btn faq-large" href="upload.html?tool=faq">FAQ 업로드</a>
+      </div>
+    </section>
+
+    <!-- 연락처 -->
+    <section class="section alt" id="contact">
+      <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <p>email:
+          <a class="link-quiet" href="mailto:jiwoo-hwang@naver.com">
+            jiwoo-hwang@naver.com
+          </a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- 푸터 -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <small>© 2025 RealEstateCalc</small>
+      <div class="footer-links">
+        <a href="#tools">도구</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">문의</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
