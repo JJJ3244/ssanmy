@@ -58,10 +58,16 @@ export default async function handler(req, res) {
     }
 
     // 안전하게 아이템 배열을 찾아봄
+    // 정답: 대문자 Response 경로 우선 처리 + 기존 경로는 백업
     const items =
-      data?.response?.body?.items?.item ??
-      data?.data ?? // 혹시 ODcloud 스타일일 경우
-      [];
+      data?.Response?.items?.item ??      // ← 실제 응답 구조
+      data?.response?.body?.items?.item ?? // (백업 경로)
+      data?.data ??                        // (ODcloud 스타일 백업)
+    [];
+
+// 단일 객체로 내려오는 경우도 안전하게 배열화
+const rows = Array.isArray(items) ? items : (items ? [items] : []);
+
 
     const rows = Array.isArray(items) ? items : (items ? [items] : []);
     const summary = { count: rows.length };
