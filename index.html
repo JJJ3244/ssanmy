@@ -1,153 +1,98 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>부동산 전망 계산기</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#0a0f1e; --bg2:#0c1226; --card:#111a2f; --edge:#1f2b4a;
-      --text:#eaf1ff; --muted:#9fb2cc; --accent:#8ab4ff;
-      --glow: 0 10px 30px rgba(0,0,0,.35);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:Pretendard,system-ui,Segoe UI,Apple SD Gothic Neo,Arial;
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 80% -10%, #263a72 0%, rgba(38,58,114,0) 60%),
-        radial-gradient(900px 700px at -10% 20%, #1e2e5a 0%, rgba(30,46,90,0) 60%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
-    }
-    .wrap{max-width:1040px;margin:56px auto;padding:0 20px}
-    header{
-      display:flex; align-items:center; justify-content:space-between; margin-bottom:28px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:12px; font-weight:600; letter-spacing:.2px;
-    }
-    .badge{font-size:12px;color:#cfe0ff;background:#152042;border:1px solid #2a3b65;padding:4px 8px;border-radius:999px}
-    .card{
-      background: linear-gradient(180deg, #121b31 0%, #0f182c 100%);
-      border:1px solid var(--edge); border-radius:18px; padding:28px;
-      box-shadow: var(--glow);
-    }
-    h1{margin:0 0 8px; font-size:32px}
-    p.desc{margin:0; color:var(--muted)}
-    .grid{
-      margin-top:22px;
-      display:grid; gap:14px;
-      grid-template-columns: repeat(2, minmax(0,1fr));
-    }
-    .btn{
-      display:flex; align-items:center; justify-content:center;
-      gap:10px; padding:18px 20px; border-radius:14px;
-      background: linear-gradient(180deg,#1a2542 0%, #16223b 100%);
-      border:1px solid #2a3b65; color:var(--text); text-decoration:none; font-weight:600;
-      transition: transform .12s ease, box-shadow .12s ease, background .2s ease;
-      box-shadow: 0 6px 18px rgba(0,0,0,.25);
-      user-select:none;
-    }
-    .btn:hover{transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0,0,0,.35); background: linear-gradient(180deg,#203056 0%, #1a2848 100%)}
-    .btn:active{transform: translateY(0)}
-    /* 하단 안내/연락처 */
-    .footer{
-      margin-top:18px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:14px;
-    }
-    .mailto{
-      color:inherit; text-decoration:none; border-bottom:1px dashed rgba(154,183,221,.35); padding-bottom:1px;
-    }
-    .mailto:hover{color:var(--text); border-bottom-color: rgba(154,183,221,.7)}
-    /* 모달 */
-    .modal-backdrop{
-      position:fixed; inset:0; display:none;
-      background:rgba(5,10,20,.55); backdrop-filter: blur(4px);
-      align-items:center; justify-content:center; z-index:50;
-    }
-    .modal{
-      width:min(520px, calc(100% - 36px));
-      background: linear-gradient(180deg,#121a30 0%, #0f182b 100%);
-      border:1px solid #27406e; border-radius:16px; padding:22px;
-      box-shadow: 0 25px 80px rgba(0,0,0,.55);
-      animation: pop .16s ease-out;
-    }
-    @keyframes pop{from{transform:scale(.98); opacity:.5} to{transform:scale(1); opacity:1}}
-    .modal h3{margin:0 0 6px; font-size:20px}
-    .modal p{margin:0; color:var(--muted)}
-    .modal .actions{margin-top:16px; display:flex; justify-content:flex-end; gap:8px}
-    .ghost{
-      background:transparent; color:#cfe3ff; border:1px solid #385487; padding:10px 14px; border-radius:10px; cursor:pointer;
-    }
-    .ghost:hover{background:#13203a}
-    @media (max-width:640px){ h1{font-size:26px} .grid{grid-template-columns: 1fr} }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <span style="font-weight:700;">부동산 전망 계산기</span>
-        <span class="badge">Beta</span>
-      </div>
-      <div class="badge">v0.1</div>
-    </header>
+  <!-- 헤더 -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html">RealEstateCalc</a>
+      <nav class="nav" id="nav">
+        <a href="#tools">도구</a>
+        <a href="#faq">FAQ</a>
+        <a href="board.html">게시판</a>
+        <a href="#contact">문의</a>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-label="메뉴 열기">☰</button>
+    </div>
+  </header>
 
-    <section class="card">
-      <h1>원하는 분석을 선택하세요</h1>
-      <p class="desc">아래 기능은 현재 베타 준비 단계입니다. 선택 시 안내 팝업이 표시됩니다.</p>
+  <main>
+    <!-- 분석 도구 -->
+    <section class="section hero-min" id="tools">
+      <div class="container hero-stack">
+        <h1>부동산 전망 계산기</h1>
+        <p class="sub">원하는 분석 항목을 선택하세요.</p>
 
-      <div class="grid" style="margin-top:20px">
-        <a class="btn" data-feature="종합분석">종합분석</a>
-        <a class="btn" data-feature="인구통계분석">인구통계분석</a>
-        <a class="btn" data-feature="분양 전망 예측">분양 전망 예측</a>
-        <a class="btn" data-feature="탄력성 분석">탄력성 분석</a>
-        <!-- ✅ FAQ 버튼 완전 제거 (이 줄 자체가 없음) -->
-      </div>
-
-      <div class="footer">
-        <span>※ 일부 기능은 데이터 연동 후 순차 오픈됩니다.</span>
-        <span>Contact Us : <a class="mailto" href="mailto:jiwoo-hwang@naver.com">jiwoo-hwang@naver.com</a></span>
+        <div class="btn-grid">
+          <a class="btn primary" href="upload.html?tool=summary">종합분석</a>
+          <a class="btn primary" href="upload.html?tool=demographic">인구통계분석</a>
+          <a class="btn primary" href="upload.html?tool=pre-sale">분양 전망 예측</a>
+          <a class="btn primary" href="upload.html?tool=elasticity">탄력성 분석</a>
+        </div>
       </div>
     </section>
-  </div>
 
-  <!-- 모달 팝업 -->
-  <div class="modal-backdrop" id="modal">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
-      <h3 id="m-title">준비중입니다.</h3>
-      <p id="m-desc">선택하신 기능은 현재 준비중입니다.</p>
-      <div class="actions">
-        <button class="ghost" id="m-close">확인</button>
+    <!-- FAQ (그대로 유지, 업로드로 연결하지 않음) -->
+    <section class="section faq-section" id="faq">
+      <div class="container">
+        <h2 class="section-title">FAQ</h2>
+        <div class="faq-list">
+          <details>
+            <summary>이 서비스는 무엇을 하나요?</summary>
+            <p>부동산 관련 데이터를 바탕으로 다양한 관점의 분석을 제공합니다. 세부 내용은 곧 추가됩니다.</p>
+          </details>
+          <details>
+            <summary>분석 결과는 어떻게 제공되나요?</summary>
+            <p>초기에는 요약 리포트 형태로 제공될 예정입니다. (업데이트 예정)</p>
+          </details>
+        </div>
+
+        <div class="center" style="margin-top:16px">
+          <a class="btn faq-large" href="#faq">FAQ 더 보기</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 게시판 안내 CTA -->
+    <section class="section alt">
+      <div class="container center">
+        <h2 class="section-title">문의사항 게시판</h2>
+        <p class="muted">질문이나 요청을 남겨주세요. 글쓰기 페이지로 이동합니다.</p>
+        <a class="btn primary" href="write.html">게시글 쓰기</a>
+        <a class="btn ghost" href="board.html" style="margin-left:8px">게시판 목록</a>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact">
+      <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <p>email:
+          <a class="link-quiet" href="mailto:jiwoo-hwang@naver.com">jiwoo-hwang@naver.com</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <small>© 2025 RealEstateCalc</small>
+      <div class="footer-links">
+        <a href="#tools">도구</a>
+        <a href="#faq">FAQ</a>
+        <a href="board.html">게시판</a>
+        <a href="#contact">문의</a>
       </div>
     </div>
-  </div>
+  </footer>
 
-  <script>
-    // 버튼 → 모달 “준비중입니다.”
-    const modal = document.getElementById('modal');
-    const mTitle = document.getElementById('m-title');
-    const mDesc  = document.getElementById('m-desc');
-    const mClose = document.getElementById('m-close');
-
-    function openModal(feature){
-      mTitle.textContent = '준비중입니다.';
-      mDesc.textContent  = `${feature} 기능은 현재 준비중입니다.`;
-      modal.style.display = 'flex';
-    }
-    function closeModal(){ modal.style.display = 'none'; }
-
-    document.querySelectorAll('.btn[data-feature]').forEach(btn=>{
-      btn.addEventListener('click', e=>{
-        e.preventDefault();
-        openModal(btn.getAttribute('data-feature'));
-      });
-    });
-    mClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
-    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
