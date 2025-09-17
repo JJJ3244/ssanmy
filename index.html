@@ -8,59 +8,146 @@
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0b1020; --card:#12192b; --text:#e9eef6;
-      --muted:#9fb2c8; --accent:#8ab4ff;
+      --bg:#0a0f1e; --bg2:#0c1226; --card:#111a2f; --edge:#1f2b4a;
+      --text:#eaf1ff; --muted:#9fb2cc; --accent:#8ab4ff;
+      --glow: 0 10px 30px rgba(0,0,0,.35);
     }
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin:0; background:var(--bg); color:var(--text);
-      font-family:Pretendard,system-ui,Segoe UI,Apple SD Gothic Neo,Arial
+      margin:0; font-family:Pretendard,system-ui,Segoe UI,Apple SD Gothic Neo,Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, #263a72 0%, rgba(38,58,114,0) 60%),
+        radial-gradient(900px 700px at -10% 20%, #1e2e5a 0%, rgba(30,46,90,0) 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
     }
-    .wrap{max-width:960px;margin:60px auto;padding:0 16px;text-align:center}
-    h1{font-size:32px;margin-bottom:12px}
-    p.desc{color:var(--muted);margin-bottom:36px}
+    .wrap{max-width:1040px;margin:56px auto;padding:0 20px}
+    header{
+      display:flex; align-items:center; justify-content:space-between; margin-bottom:28px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; font-weight:600; letter-spacing:.2px;
+    }
+    .badge{font-size:12px;color:#cfe0ff;background:#152042;border:1px solid #2a3b65;padding:4px 8px;border-radius:999px}
+    .card{
+      background: linear-gradient(180deg, #121b31 0%, #0f182c 100%);
+      border:1px solid var(--edge); border-radius:18px; padding:28px;
+      box-shadow: var(--glow);
+    }
+    h1{margin:0 0 8px; font-size:32px}
+    p.desc{margin:0; color:var(--muted)}
+    .grid{
+      margin-top:22px;
+      display:grid; gap:14px;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+    }
     .btn{
-      display:inline-block;margin:10px;padding:16px 28px;
-      border-radius:12px;font-size:18px;font-weight:600;
-      background:linear-gradient(180deg,#1d2942 0%,#162136 100%);
-      color:var(--text); text-decoration:none;
-      border:1px solid #2a3c67; transition:background .2s
+      display:flex; align-items:center; justify-content:center;
+      gap:10px; padding:18px 20px; border-radius:14px;
+      background: linear-gradient(180deg,#1a2542 0%, #16223b 100%);
+      border:1px solid #2a3b65; color:var(--text); text-decoration:none; font-weight:600;
+      transition: transform .12s ease, box-shadow .12s ease, background .2s ease;
+      box-shadow: 0 6px 18px rgba(0,0,0,.25);
+      user-select:none;
     }
-    .btn:hover{background:linear-gradient(180deg,#223056 0%,#1a2640 100%)}
-    footer{
-      margin-top:60px; color:var(--muted); font-size:14px
+    .btn:hover{transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0,0,0,.35); background: linear-gradient(180deg,#203056 0%, #1a2848 100%)}
+    .btn:active{transform: translateY(0)}
+    /* 하단 안내/연락처 */
+    .footer{
+      margin-top:18px; display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:14px;
     }
-    footer a{
-      color:var(--muted); text-decoration:none
+    .mailto{
+      color:inherit; text-decoration:none; border-bottom:1px dashed rgba(154,183,221,.35); padding-bottom:1px;
     }
-    footer a:hover{color:var(--accent)}
+    .mailto:hover{color:var(--text); border-bottom-color: rgba(154,183,221,.7)}
+    /* 모달 */
+    .modal-backdrop{
+      position:fixed; inset:0; display:none;
+      background:rgba(5,10,20,.55); backdrop-filter: blur(4px);
+      align-items:center; justify-content:center; z-index:50;
+    }
+    .modal{
+      width:min(520px, calc(100% - 36px));
+      background: linear-gradient(180deg,#121a30 0%, #0f182b 100%);
+      border:1px solid #27406e; border-radius:16px; padding:22px;
+      box-shadow: 0 25px 80px rgba(0,0,0,.55);
+      animation: pop .16s ease-out;
+    }
+    @keyframes pop{from{transform:scale(.98); opacity:.5} to{transform:scale(1); opacity:1}}
+    .modal h3{margin:0 0 6px; font-size:20px}
+    .modal p{margin:0; color:var(--muted)}
+    .modal .actions{margin-top:16px; display:flex; justify-content:flex-end; gap:8px}
+    .ghost{
+      background:transparent; color:#cfe3ff; border:1px solid #385487; padding:10px 14px; border-radius:10px; cursor:pointer;
+    }
+    .ghost:hover{background:#13203a}
+    @media (max-width:640px){ h1{font-size:26px} .grid{grid-template-columns: 1fr} }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>부동산 전망 계산기</h1>
-    <p class="desc">원하는 분석을 선택해 주세요.</p>
+    <header>
+      <div class="brand">
+        <span style="font-weight:700;">부동산 전망 계산기</span>
+        <span class="badge">Beta</span>
+      </div>
+      <div class="badge">v0.1</div>
+    </header>
 
-    <!-- 분석 버튼들 -->
-    <div>
-      <a href="#" class="btn" onclick="alertMsg('종합분석')">종합분석</a>
-      <a href="#" class="btn" onclick="alertMsg('인구통계분석')">인구통계분석</a>
-      <a href="#" class="btn" onclick="alertMsg('분양 전망 예측')">분양 전망 예측</a>
-      <a href="#" class="btn" onclick="alertMsg('탄력성 분석')">탄력성 분석</a>
-      <!-- ✅ FAQ 버튼 삭제 -->
+    <section class="card">
+      <h1>원하는 분석을 선택하세요</h1>
+      <p class="desc">아래 기능은 현재 베타 준비 단계입니다. 선택 시 안내 팝업이 표시됩니다.</p>
+
+      <div class="grid" style="margin-top:20px">
+        <a class="btn" data-feature="종합분석">종합분석</a>
+        <a class="btn" data-feature="인구통계분석">인구통계분석</a>
+        <a class="btn" data-feature="분양 전망 예측">분양 전망 예측</a>
+        <a class="btn" data-feature="탄력성 분석">탄력성 분석</a>
+        <!-- ✅ FAQ 버튼 완전 제거 (이 줄 자체가 없음) -->
+      </div>
+
+      <div class="footer">
+        <span>※ 일부 기능은 데이터 연동 후 순차 오픈됩니다.</span>
+        <span>Contact Us : <a class="mailto" href="mailto:jiwoo-hwang@naver.com">jiwoo-hwang@naver.com</a></span>
+      </div>
+    </section>
+  </div>
+
+  <!-- 모달 팝업 -->
+  <div class="modal-backdrop" id="modal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+      <h3 id="m-title">준비중입니다.</h3>
+      <p id="m-desc">선택하신 기능은 현재 준비중입니다.</p>
+      <div class="actions">
+        <button class="ghost" id="m-close">확인</button>
+      </div>
     </div>
-
-    <footer>
-      Contact Us :
-      <a href="mailto:jiwoo-hwang@naver.com">jiwoo-hwang@naver.com</a>
-    </footer>
   </div>
 
   <script>
-    // 버튼 클릭 시 팝업 메시지
-    function alertMsg(name){
-      alert(name + "은(는) 준비중입니다.");
+    // 버튼 → 모달 “준비중입니다.”
+    const modal = document.getElementById('modal');
+    const mTitle = document.getElementById('m-title');
+    const mDesc  = document.getElementById('m-desc');
+    const mClose = document.getElementById('m-close');
+
+    function openModal(feature){
+      mTitle.textContent = '준비중입니다.';
+      mDesc.textContent  = `${feature} 기능은 현재 준비중입니다.`;
+      modal.style.display = 'flex';
     }
+    function closeModal(){ modal.style.display = 'none'; }
+
+    document.querySelectorAll('.btn[data-feature]').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        e.preventDefault();
+        openModal(btn.getAttribute('data-feature'));
+      });
+    });
+    mClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) closeModal(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
   </script>
 </body>
 </html>
