@@ -31,3 +31,36 @@
       margin-top:60px; color:var(--muted); font-size:14px
     }
     footer a{
+      color:var(--muted); text-decoration:none
+    }
+    footer a:hover{color:var(--accent)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>부동산 전망 계산기</h1>
+    <p class="desc">원하는 분석을 선택해 주세요.</p>
+
+    <!-- 분석 버튼들 -->
+    <div>
+      <a href="#" class="btn" onclick="alertMsg('종합분석')">종합분석</a>
+      <a href="#" class="btn" onclick="alertMsg('인구통계분석')">인구통계분석</a>
+      <a href="#" class="btn" onclick="alertMsg('분양 전망 예측')">분양 전망 예측</a>
+      <a href="#" class="btn" onclick="alertMsg('탄력성 분석')">탄력성 분석</a>
+      <!-- ✅ FAQ 버튼 삭제 -->
+    </div>
+
+    <footer>
+      Contact Us :
+      <a href="mailto:jiwoo-hwang@naver.com">jiwoo-hwang@naver.com</a>
+    </footer>
+  </div>
+
+  <script>
+    // 버튼 클릭 시 팝업 메시지
+    function alertMsg(name){
+      alert(name + "은(는) 준비중입니다.");
+    }
+  </script>
+</body>
+</html>
